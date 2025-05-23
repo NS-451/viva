@@ -739,7 +739,7 @@
     </section>
     
     <!-- Formulaire d'inscription -->
-     <form action="https://formspree.io/f/xnndrjzk" method="POST" id="waitlist-form">
+<form action="https://formspree.io/f/xnndrjzk" method="POST" id="waitlist-form">
     <div class="form-group">
         <input type="text" name="nom" class="form-control" placeholder="Votre nom">
     </div>
@@ -756,9 +756,8 @@
         </select>
     </div>
 
-    <!-- ✅ champs cachés pour que tu reçoives toujours le formulaire -->
-    <input type="hidden" name="_cc" value="noah.stoessel23@gmail.com">
-    <input type="hidden" name="source" value="Inscription à la liste d'attente VIVA">
+    <!-- 👇 ajout d’un champ texte invisible pour t’aider à trier -->
+         <input type="hidden" name="form_type" value="inscription_waitlist">
 
     <button type="submit" class="btn">Rejoindre la liste d'attente</button>
 </form>
