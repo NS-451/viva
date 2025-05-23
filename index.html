@@ -1054,50 +1054,60 @@
         }
 
         // Gestion de l'envoi du questionnaire
-        document.getElementById('survey-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const submitBtn = this.querySelector('.btn-survey');
-            const originalText = submitBtn.textContent;
-            
-            submitBtn.textContent = 'Envoi en cours... ⏳';
-            submitBtn.disabled = true;
-            
-            // Collecte des données du formulaire
-            const formData = new FormData(this);
-            const responses = {};
-            
-            for (let [key, value] of formData.entries()) {
-                responses[key] = value;
+       document.getElementById('survey-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const submitBtn = this.querySelector('.btn-survey');
+    const originalText = submitBtn.textContent;
+    
+    submitBtn.textContent = 'Envoi en cours... ⏳';
+    submitBtn.disabled = true;
+    
+    try {
+        // Envoi réel à Formspree
+        const formData = new FormData(this);
+        const response = await fetch('https://formspree.io/f/xnndrjzk', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
             }
-            
-            console.log('Réponses du questionnaire:', responses);
-            
-            // Simulation d'envoi
-            setTimeout(() => {
-                submitBtn.textContent = '🎉 Merci pour tes réponses !';
-                submitBtn.style.background = 'linear-gradient(135deg, #4CAF50, #45a049)';
-                
-                // Message de remerciement
-                const thankYouMessage = document.createElement('div');
-                thankYouMessage.innerHTML = `
-                    <div style="background: linear-gradient(135deg, #4CAF50, #45a049); color: white; padding: 20px; border-radius: 15px; text-align: center; margin-top: 20px; animation: slideIn 0.5s ease;">
-                        <h3>🙏 Merci beaucoup !</h3>
-                        <p>Tes réponses vont m'aider énormément à créer la meilleure app possible.</p>
-                        <p><strong>Je te tiens au courant dès que c'est prêt ! 🚀</strong></p>
-                    </div>
-                `;
-                
-                this.appendChild(thankYouMessage);
-                
-                // Masquer le formulaire après quelques secondes
-                setTimeout(() => {
-                    this.style.opacity = '0.5';
-                    this.style.pointerEvents = 'none';
-                }, 2000);
-                
-            }, 1500);
         });
+        
+        if (response.ok) {
+            // Succès
+            submitBtn.textContent = '🎉 Merci pour tes réponses !';
+            submitBtn.style.background = 'linear-gradient(135deg, #4CAF50, #45a049)';
+            
+            const thankYouMessage = document.createElement('div');
+            thankYouMessage.innerHTML = `
+                <div style="background: linear-gradient(135deg, #4CAF50, #45a049); color: white; padding: 20px; border-radius: 15px; text-align: center; margin-top: 20px; animation: slideIn 0.5s ease;">
+                    <h3>🙏 Merci beaucoup !</h3>
+                    <p>Tes réponses vont m'aider énormément à créer la meilleure app possible.</p>
+                    <p><strong>Je te tiens au courant dès que c'est prêt ! 🚀</strong></p>
+                </div>
+            `;
+            this.appendChild(thankYouMessage);
+            
+            setTimeout(() => {
+                this.style.opacity = '0.5';
+                this.style.pointerEvents = 'none';
+            }, 2000);
+        } else {
+            throw new Error('Erreur d\'envoi');
+        }
+    } catch (error) {
+        // Erreur
+        submitBtn.textContent = '❌ Erreur, réessayez';
+        submitBtn.style.background = '#ff4444';
+        submitBtn.disabled = false;
+        
+        setTimeout(() => {
+            submitBtn.textContent = originalText;
+            submitBtn.style.background = '';
+        }, 3000);
+    }
+});
 
         // Animation d'apparition progressive
         function animateOnScroll() {
