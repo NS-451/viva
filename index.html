@@ -740,32 +740,75 @@
     
     <!-- Formulaire d'inscription -->
     <section id="signup" class="signup">
-        <div class="container">
-            <h2 class="section-title">Soyez parmi les premiers à essayer VIVA</h2>
-            <p>Inscrivez-vous pour recevoir un accès anticipé à notre version bêta.</p>
-            <div class="signup-form">
-                <form action="https://formspree.io/f/xnndrjzk" method="POST" id="waitlist-form">
-                    <div class="form-group">
-                        <input type="text" name="nom" class="form-control" placeholder="Votre nom" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" name="email" class="form-control" placeholder="Votre email" required>
-                    </div>
-                    <div class="form-group">
-                        <select name="interet" class="form-control">
-                            <option value="" disabled selected>Quelle fonctionnalité vous intéresse le plus ?</option>
-                            <option value="style">Conseils vestimentaires</option>
-                            <option value="nutrition">Analyse nutritionnelle</option>
-                            <option value="recipes">Recettes personnalisées</option>
-                            <option value="all">Toutes ces fonctionnalités</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn">Rejoindre la liste d'attente</button>
-                </form>
+    <div class="container">
+        <h2 class="section-title">Soyez parmi les premiers à essayer VIVA</h2>
+        <p>Inscrivez-vous pour recevoir un accès anticipé à notre version bêta.</p>
+        <div class="signup-form">
+            <form action="https://formspree.io/f/xnndrjzk" method="POST" id="waitlist-form">
+                <!-- Nom -->
+                <div class="form-group">
+                    <input type="text" name="nom" class="form-control" placeholder="Votre nom" required>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                    <input type="email" name="email" class="form-control" placeholder="Votre email" required>
+                </div>
+
+                <!-- Intérêt -->
+                <div class="form-group">
+                    <select name="interet" class="form-control" required>
+                        <option value="" disabled selected>Quelle fonctionnalité vous intéresse le plus ?</option>
+                        <option value="style">Conseils vestimentaires</option>
+                        <option value="nutrition">Analyse nutritionnelle</option>
+                        <option value="recipes">Recettes personnalisées</option>
+                        <option value="all">Toutes ces fonctionnalités</option>
+                    </select>
+                </div>
+
+                <!-- Bouton -->
+                <button type="submit" class="btn">Rejoindre la liste d'attente</button>
+            </form>
+
+            <!-- Message de remerciement -->
+            <div id="form-success-message" style="display: none; margin-top: 20px; color: green;">
+                Merci pour votre inscription ! 🎉<br>Vous recevrez un email dès que la bêta sera prête 🚀
             </div>
         </div>
-    </section>
-    
+    </div>
+</section>
+
+<script>
+// Formspree : Gestion simple avec JS (affiche un message de succès)
+document.getElementById('waitlist-form').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const form = this;
+    const formData = new FormData(form);
+    const button = form.querySelector('button');
+    const successMessage = document.getElementById('form-success-message');
+
+    button.disabled = true;
+    button.textContent = "Envoi... ⏳";
+
+    const response = await fetch(form.action, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: formData
+    });
+
+    if (response.ok) {
+        form.reset();
+        form.style.display = 'none';
+        successMessage.style.display = 'block';
+    } else {
+        alert("Erreur lors de l'envoi. Réessaie plus tard.");
+        button.disabled = false;
+        button.textContent = "Rejoindre la liste d'attente";
+    }
+});
+</script>
+   
 
     
     <!-- Témoignages -->
