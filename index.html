@@ -872,3 +872,288 @@
                             </label>
                             <label class="radio-option">
                                 <input type="radio" name="priorite_aide" value="organiser" required>
+                                <span class="radio-custom">📅 M'organiser au quotidien</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="priorite_aide" value="tout" required>
+                                <span class="radio-custom">🤩 Tout ça !</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Question 5 -->
+                    <div class="question-block">
+                        <h3 class="question-title">5. Tu paierais combien par mois pour cette app ?</h3>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="prix_mensuel" value="gratuit" required>
+                                <span class="radio-custom">💸 Rien, je veux que ce soit gratuit</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="prix_mensuel" value="2-5euros" required>
+                                <span class="radio-custom">💰 Entre 2-5€</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="prix_mensuel" value="5-10euros" required>
+                                <span class="radio-custom">💳 Entre 5-10€</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="prix_mensuel" value="plus_10euros" required>
+                                <span class="radio-custom">🤑 Plus de 10€</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Question optionnelle sur l'âge -->
+                    <div class="question-block">
+                        <h3 class="question-title">6. Ton âge ? (optionnel mais ça m'aiderait)</h3>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="age" value="moins_18">
+                                <span class="radio-custom">👶 Moins de 18 ans</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="age" value="18-25">
+                                <span class="radio-custom">🎓 18-25 ans</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="age" value="25-35">
+                                <span class="radio-custom">💼 25-35 ans</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="age" value="plus_35">
+                                <span class="radio-custom">🧠 Plus de 35 ans</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Email conditionnel -->
+                    <div class="question-block email-conditional" id="email-block">
+                        <h3 class="question-title">7. Tu veux être prévenu(e) quand l'app sera prête ?</h3>
+                        <div class="radio-group" style="margin-bottom: 20px;">
+                            <label class="radio-option">
+                                <input type="radio" name="veux_notification" value="oui" onchange="toggleEmailInput(true)">
+                                <span class="radio-custom">✅ Oui, prévenez-moi !</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="veux_notification" value="non" onchange="toggleEmailInput(false)">
+                                <span class="radio-custom">❌ Non merci</span>
+                            </label>
+                        </div>
+                        <div id="email-input" style="display: none;">
+                            <input type="email" name="email_survey" class="form-control-survey" placeholder="Ton email ici 📧">
+                        </div>
+                    </div>
+
+                    <!-- Commentaires optionnels -->
+                    <div class="question-block">
+                        <h3 class="question-title">8. Une dernière idée ou suggestion ? (optionnel)</h3>
+                        <textarea name="commentaires" class="form-control-survey" rows="4" placeholder="Dis-moi ce que tu penses... 💭"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-survey">Envoyer mes réponses 🚀</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Pied de page -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 VIVA. Tous droits réservés.</p>
+            <div class="social-links">
+                <a href="#" class="social-link">📧</a>
+                <a href="#" class="social-link">📱</a>
+                <a href="#" class="social-link">💬</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Navigation entre les écrans du téléphone
+        function showScreen(screenNumber) {
+            // Masquer tous les écrans
+            const screens = document.querySelectorAll('.screen');
+            screens.forEach(screen => screen.classList.remove('active'));
+            
+            // Afficher l'écran sélectionné
+            document.getElementById('screen' + screenNumber).classList.add('active');
+            
+            // Mettre à jour les boutons de navigation
+            const navBtns = document.querySelectorAll('.nav-btn');
+            navBtns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        // Animation automatique des écrans (optionnel)
+        let currentScreen = 1;
+        function autoSlideScreens() {
+            setInterval(() => {
+                currentScreen = currentScreen >= 3 ? 1 : currentScreen + 1;
+                
+                // Masquer tous les écrans
+                const screens = document.querySelectorAll('.screen');
+                screens.forEach(screen => screen.classList.remove('active'));
+                
+                // Afficher l'écran suivant
+                document.getElementById('screen' + currentScreen).classList.add('active');
+                
+                // Mettre à jour les boutons
+                const navBtns = document.querySelectorAll('.nav-btn');
+                navBtns.forEach(btn => btn.classList.remove('active'));
+                navBtns[currentScreen - 1].classList.add('active');
+                
+            }, 4000); // Change d'écran toutes les 4 secondes
+        }
+
+        // Activer l'animation automatique (décommentez si souhaité)
+        // autoSlideScreens();
+
+        // Gestion du formulaire d'inscription
+        document.getElementById('waitlist-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simulation d'envoi
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            
+            submitBtn.textContent = 'Inscription en cours...';
+            submitBtn.disabled = true;
+            
+            // Simuler l'envoi avec Formspree (remplacez par votre vrai endpoint)
+            setTimeout(() => {
+                submitBtn.textContent = '✅ Inscrit(e) !';
+                submitBtn.style.background = '#4CAF50';
+                
+                // Reset après 3 secondes
+                setTimeout(() => {
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                    submitBtn.style.background = '';
+                    this.reset();
+                }, 3000);
+            }, 1500);
+        });
+
+        // Gestion du questionnaire
+        function toggleEmailInput(show) {
+            const emailInput = document.getElementById('email-input');
+            const emailBlock = document.getElementById('email-block');
+            
+            if (show) {
+                emailInput.style.display = 'block';
+                emailBlock.style.opacity = '1';
+                emailInput.querySelector('input').required = true;
+            } else {
+                emailInput.style.display = 'none';
+                emailBlock.style.opacity = '0.7';
+                emailInput.querySelector('input').required = false;
+                emailInput.querySelector('input').value = '';
+            }
+        }
+
+        // Gestion de l'envoi du questionnaire
+        document.getElementById('survey-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('.btn-survey');
+            const originalText = submitBtn.textContent;
+            
+            submitBtn.textContent = 'Envoi en cours... ⏳';
+            submitBtn.disabled = true;
+            
+            // Collecte des données du formulaire
+            const formData = new FormData(this);
+            const responses = {};
+            
+            for (let [key, value] of formData.entries()) {
+                responses[key] = value;
+            }
+            
+            console.log('Réponses du questionnaire:', responses);
+            
+            // Simulation d'envoi
+            setTimeout(() => {
+                submitBtn.textContent = '🎉 Merci pour tes réponses !';
+                submitBtn.style.background = 'linear-gradient(135deg, #4CAF50, #45a049)';
+                
+                // Message de remerciement
+                const thankYouMessage = document.createElement('div');
+                thankYouMessage.innerHTML = `
+                    <div style="background: linear-gradient(135deg, #4CAF50, #45a049); color: white; padding: 20px; border-radius: 15px; text-align: center; margin-top: 20px; animation: slideIn 0.5s ease;">
+                        <h3>🙏 Merci beaucoup !</h3>
+                        <p>Tes réponses vont m'aider énormément à créer la meilleure app possible.</p>
+                        <p><strong>Je te tiens au courant dès que c'est prêt ! 🚀</strong></p>
+                    </div>
+                `;
+                
+                this.appendChild(thankYouMessage);
+                
+                // Masquer le formulaire après quelques secondes
+                setTimeout(() => {
+                    this.style.opacity = '0.5';
+                    this.style.pointerEvents = 'none';
+                }, 2000);
+                
+            }, 1500);
+        });
+
+        // Animation d'apparition progressive
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.feature-card, .testimonial-card, .question-block');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+            
+            elements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        }
+
+        // Scroll fluide pour les liens d'ancrage
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            animateOnScroll();
+            
+            // Animation CSS pour le message de remerciement
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from {
+                        opacity: 0;
+                        transform: translateY(20px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>
