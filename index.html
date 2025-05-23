@@ -1037,21 +1037,22 @@
         });
 
         // Gestion du questionnaire
-        function toggleEmailInput(show) {
-            const emailInput = document.getElementById('email-input');
-            const emailBlock = document.getElementById('email-block');
-            
-            if (show) {
-                emailInput.style.display = 'block';
-                emailBlock.style.opacity = '1';
-                emailInput.querySelector('input').required = true;
-            } else {
-                emailInput.style.display = 'none';
-                emailBlock.style.opacity = '0.7';
-                emailInput.querySelector('input').required = false;
-                emailInput.querySelector('input').value = '';
-            }
-        }
+       function toggleEmailInput(show) {
+    const emailBlock = document.getElementById('email-block');
+    const emailInput = emailBlock.querySelector('input'); // le champ <input> réel
+
+    if (show) {
+        emailBlock.style.display = 'block';
+        emailBlock.style.opacity = '1';
+        emailInput.required = true;
+    } else {
+        emailBlock.style.display = 'none';
+        emailBlock.style.opacity = '0.7';
+        emailInput.required = false;
+        emailInput.value = '';
+    }
+}
+
 
         // Gestion de l'envoi du questionnaire
        document.getElementById('survey-form').addEventListener('submit', async function(e) {
