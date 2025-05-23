@@ -1112,12 +1112,15 @@
                 });
             });
             
-            elements.forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(20px)';
-                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(el);
-            });
+           elements.forEach(el => {
+    // Ne pas masquer les éléments du questionnaire par défaut
+    if (!el.closest('.user-survey')) {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+    }
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+});
         }
 
         // Scroll fluide pour les liens d'ancrage
