@@ -1,211 +1,1044 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>VIVA - Votre Coach IA Personnel</title>
-  <style>
-    /* Styles existants ici... (inchangés) */
-    /* (… tout ton CSS original ici …) */
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIVA - Votre Coach IA Personnel</title>
+    <style>
+        /* Styles généraux */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* En-tête */
+        header {
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        /* Bannière principale */
+        .hero {
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            color: #444;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: #666;
+        }
+        
+        /* Fonctionnalités */
+        .features {
+            padding: 4rem 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: #444;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #6e8efb;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #444;
+        }
+        
+        .feature-card p {
+            color: #666;
+        }
 
-    /* --- Nouveaux styles ajoutés --- */
+        /* Styles pour la maquette mobile */
+        .mobile-preview {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #f8f9ff, #f0f4ff);
+        }
 
-    .mobile-preview {
-      padding: 4rem 0;
-      background-color: white;
-    }
+        .phone-mockup {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-    .phone-mockup {
-      text-align: center;
-    }
+        .phone-container {
+            position: relative;
+        }
 
-    .phone-mockup img {
-      max-width: 300px;
-      width: 100%;
-      height: auto;
-      border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    }
+        .phone-frame {
+            width: 280px;
+            height: 560px;
+            background: #1a1a1a;
+            border-radius: 35px;
+            padding: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            position: relative;
+        }
 
-    .user-feedback {
-      padding: 4rem 0;
-      background-color: #fff;
-    }
+        .phone-frame::before {
+            content: '';
+            position: absolute;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: #333;
+            border-radius: 2px;
+        }
 
-    .feedback-form {
-      max-width: 600px;
-      margin: 0 auto;
-    }
+        .screen {
+            height: 100%;
+            width: 100%;
+            background: white;
+            border-radius: 25px;
+            padding: 20px;
+            display: none;
+            flex-direction: column;
+        }
 
-    .form-control-light {
-      width: 100%;
-      padding: 1rem;
-      margin-bottom: 1.5rem;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 1rem;
-    }
+        .screen.active {
+            display: flex;
+        }
 
-    .btn-secondary {
-      background-color: #6e8efb;
-      color: white;
-      border: none;
-      padding: 1rem 2rem;
-      font-size: 1.1rem;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
+        .screen-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f0f0f0;
+            margin-bottom: 20px;
+        }
 
-    .btn-secondary:hover {
-      background-color: #5a73d7;
-    }
-  </style>
+        .time {
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .status-icons {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .screen-content h3 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        /* Écran 1 - Style */
+        .weather-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #f8f9ff;
+            border-radius: 15px;
+        }
+
+        .weather-icon {
+            font-size: 1.5rem;
+        }
+
+        .outfit-suggestion {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .clothing-item {
+            font-size: 2.5rem;
+            padding: 15px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .suggestion-text {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Écran 2 - Food */
+        .ingredients-available {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .ingredient {
+            font-size: 2rem;
+            padding: 10px;
+            background: #fff8f0;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .meal-card {
+            background: linear-gradient(135deg, #ff9a56, #ffad56);
+            color: white;
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .meal-emoji {
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .meal-card h4 {
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        .meal-card p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        /* Écran 3 - Planning */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: #f8f9ff;
+            border-radius: 15px;
+            border-left: 4px solid #e1e1e1;
+        }
+
+        .timeline-item.completed {
+            background: #f0f8f0;
+            border-left-color: #4CAF50;
+        }
+
+        .timeline-item.current {
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: white;
+            border-left-color: #fff;
+        }
+
+        .time-slot {
+            font-weight: bold;
+            min-width: 60px;
+            margin-right: 15px;
+            font-size: 0.9rem;
+        }
+
+        .activity {
+            flex: 1;
+        }
+
+        /* Navigation des écrans */
+        .screen-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .nav-btn {
+            padding: 8px 16px;
+            border: 2px solid #6e8efb;
+            background: white;
+            color: #6e8efb;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn.active,
+        .nav-btn:hover {
+            background: #6e8efb;
+            color: white;
+        }
+
+        /* Styles pour le questionnaire */
+        .user-survey {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #f8f9ff, #fff8f9);
+        }
+
+        .survey-intro {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .survey-description {
+            font-size: 1.2rem;
+            color: #555;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .survey-form {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .question-block {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .question-block:hover {
+            transform: translateY(-2px);
+        }
+
+        .question-title {
+            color: #333;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 12px 16px;
+            border: 2px solid #f0f0f0;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .radio-option:hover {
+            border-color: #6e8efb;
+            background: #f8f9ff;
+        }
+
+        .radio-option input[type="radio"] {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+
+        .radio-option input[type="radio"]:checked {
+            accent-color: #6e8efb;
+        }
+
+        .radio-custom {
+            font-size: 1.1rem;
+            font-weight: 500;
+            flex: 1;
+        }
+
+        .inline-input {
+            margin-left: 10px;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            flex: 1;
+            max-width: 200px;
+        }
+
+        .form-control-survey {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #f0f0f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+            resize: vertical;
+        }
+
+        .form-control-survey:focus {
+            outline: none;
+            border-color: #6e8efb;
+            background: #f8f9ff;
+        }
+
+        .email-conditional {
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn-survey {
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: white;
+            border: none;
+            padding: 1.2rem 3rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 3rem auto 0;
+            box-shadow: 0 5px 15px rgba(110, 142, 251, 0.4);
+        }
+
+        .btn-survey:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(110, 142, 251, 0.6);
+        }
+        
+        /* Formulaire d'inscription */
+        .signup {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #a777e3, #6e8efb);
+            color: white;
+            text-align: center;
+        }
+        
+        .signup-form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .btn {
+            background-color: #ff7e5f;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: #ff6347;
+        }
+        
+        /* Témoignages */
+        .testimonials {
+            padding: 4rem 0;
+            background-color: #f9f9f9;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .testimonial-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .testimonial-text {
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+        
+        .testimonial-author {
+            font-weight: bold;
+            color: #444;
+        }
+        
+        /* Pied de page */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .social-links {
+            margin-top: 1rem;
+        }
+        
+        .social-link {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+        
+        /* Responsive pour mobile */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .phone-frame {
+                width: 250px;
+                height: 500px;
+            }
+            
+            .screen-content h3 {
+                font-size: 1.1rem;
+            }
+            
+            .clothing-item {
+                font-size: 2rem;
+                padding: 10px;
+            }
+
+            .survey-form {
+                padding: 0 10px;
+            }
+            
+            .question-block {
+                padding: 1.5rem;
+            }
+            
+            .question-title {
+                font-size: 1.1rem;
+            }
+            
+            .radio-option {
+                padding: 10px 12px;
+            }
+            
+            .radio-custom {
+                font-size: 1rem;
+            }
+            
+            .inline-input {
+                max-width: 150px;
+                margin-top: 8px;
+                margin-left: 0;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- En-tête -->
-  <header>
-    <div class="container">
-      <div class="logo">VIVA</div>
-      <div class="tagline">Votre coach IA personnel</div>
-    </div>
-  </header>
-
-  <!-- Bannière principale -->
-  <section class="hero">
-    <div class="container">
-      <h1>Simplifiez votre quotidien avec l'intelligence artificielle</h1>
-      <p>VIVA est votre assistant personnel qui vous aide à mieux vous habiller, mieux manger et optimiser votre temps. Une seule application pour tous vos besoins quotidiens.</p>
-      <a href="#signup" class="btn">Rejoindre la liste d'attente</a>
-    </div>
-  </section>
-
-  <!-- Fonctionnalités -->
-  <section class="features">
-    <div class="container">
-      <h2 class="section-title">Comment VIVA va transformer votre quotidien</h2>
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">👔</div>
-          <h3>Style personnalisé</h3>
-          <p>Recevez des suggestions vestimentaires adaptées à votre garde-robe, à la météo et à votre style personnel.</p>
+    <!-- En-tête -->
+    <header>
+        <div class="container">
+            <div class="logo">VIVA</div>
+            <div class="tagline">Votre coach IA personnel</div>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon">🥗</div>
-          <h3>Analyse nutritionnelle</h3>
-          <p>Scannez vos repas pour connaître leurs valeurs nutritionnelles et savoir s'ils correspondent à vos objectifs santé.</p>
+    </header>
+    
+    <!-- Bannière principale -->
+    <section class="hero">
+        <div class="container">
+            <h1>Simplifiez votre quotidien avec l'intelligence artificielle</h1>
+            <p>VIVA est votre assistant personnel qui vous aide à mieux vous habiller, mieux manger et optimiser votre temps. Une seule application pour tous vos besoins quotidiens.</p>
+            <a href="#signup" class="btn">Rejoindre la liste d'attente</a>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon">👨‍🍳</div>
-          <h3>Recettes intelligentes</h3>
-          <p>Découvrez des recettes créatives basées sur les ingrédients disponibles dans votre frigo.</p>
+    </section>
+    
+    <!-- Fonctionnalités -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Comment VIVA va transformer votre quotidien</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">👔</div>
+                    <h3>Style personnalisé</h3>
+                    <p>Recevez des suggestions vestimentaires adaptées à votre garde-robe, à la météo et à votre style personnel.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🥗</div>
+                    <h3>Analyse nutritionnelle</h3>
+                    <p>Scannez vos repas pour connaître leurs valeurs nutritionnelles et savoir s'ils correspondent à vos objectifs santé.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👨‍🍳</div>
+                    <h3>Recettes intelligentes</h3>
+                    <p>Découvrez des recettes créatives basées sur les ingrédients disponibles dans votre frigo.</p>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Maquette application mobile -->
-  <section class="mobile-preview">
-    <div class="container">
-      <h2 class="section-title">Découvrez l'interface VIVA</h2>
-      <p style="text-align: center; font-size: 1.2rem; color: #666; margin-bottom: 3rem;">
-        Une application pensée pour la génération Z, simple et intelligente
-      </p>
-      <div class="phone-mockup">
-        <img src="https://via.placeholder.com/300x600.png?text=Maquette+VIVA" alt="Aperçu application VIVA">
-      </div>
-    </div>
-  </section>
-
-  <!-- Formulaire d'inscription -->
-  <section id="signup" class="signup">
-    <div class="container">
-      <h2 class="section-title">Soyez parmi les premiers à essayer VIVA</h2>
-      <p>Inscrivez-vous pour recevoir un accès anticipé à notre version bêta.</p>
-      <div class="signup-form">
-        <form action="https://formspree.io/f/xnndrjzk" method="POST" id="waitlist-form">
-          <div class="form-group">
-            <input type="text" name="nom" class="form-control" placeholder="Votre nom" required>
-          </div>
-          <div class="form-group">
-            <input type="email" name="email" class="form-control" placeholder="Votre email" required>
-          </div>
-          <div class="form-group">
-            <select name="interet" class="form-control">
-              <option value="" disabled selected>Quelle fonctionnalité vous intéresse le plus ?</option>
-              <option value="style">Conseils vestimentaires</option>
-              <option value="nutrition">Analyse nutritionnelle</option>
-              <option value="recipes">Recettes personnalisées</option>
-              <option value="all">Toutes ces fonctionnalités</option>
-            </select>
-          </div>
-          <button type="submit" class="btn">Rejoindre la liste d'attente</button>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- Témoignages -->
-  <section class="testimonials">
-    <div class="container">
-      <h2 class="section-title">Ce que nos testeurs en disent</h2>
-      <div class="testimonial-grid">
-        <div class="testimonial-card">
-          <p class="testimonial-text">"J'ai économisé tellement de temps le matin pour choisir ma tenue. Les suggestions sont toujours adaptées à la météo et à mon style !"</p>
-          <p class="testimonial-author">Sophie, 32 ans</p>
+    <!-- Maquette application mobile -->
+    <section class="mobile-preview">
+        <div class="container">
+            <h2 class="section-title">Découvrez l'interface VIVA</h2>
+            <p style="text-align: center; font-size: 1.2rem; color: #666; margin-bottom: 3rem;">
+                Une application pensée pour la génération Z, simple et intelligente
+            </p>
+            <div class="phone-mockup">
+                <div class="phone-container">
+                    <div class="phone-frame">
+                        <div class="screen active" id="screen1">
+                            <div class="screen-header">
+                                <span class="time">9:41</span>
+                                <div class="status-icons">●●●</div>
+                            </div>
+                            <div class="screen-content">
+                                <h3>Suggestion tenue du jour</h3>
+                                <div class="weather-info">
+                                    <span class="weather-icon">☀️</span>
+                                    <span>22°C - Ensoleillé</span>
+                                </div>
+                                <div class="outfit-suggestion">
+                                    <div class="clothing-item">👕</div>
+                                    <div class="clothing-item">👖</div>
+                                    <div class="clothing-item">👟</div>
+                                </div>
+                                <p class="suggestion-text">Look casual-chic parfait pour aujourd'hui</p>
+                            </div>
+                        </div>
+                        
+                        <div class="screen" id="screen2">
+                            <div class="screen-header">
+                                <span class="time">9:41</span>
+                                <div class="status-icons">●●●</div>
+                            </div>
+                            <div class="screen-content">
+                                <h3>Que manger aujourd'hui ?</h3>
+                                <div class="ingredients-available">
+                                    <span class="ingredient">🥕</span>
+                                    <span class="ingredient">🧀</span>
+                                    <span class="ingredient">🥖</span>
+                                </div>
+                                <div class="meal-suggestion">
+                                    <div class="meal-card">
+                                        <span class="meal-emoji">🥪</span>
+                                        <h4>Croque-monsieur gourmand</h4>
+                                        <p>15 min • Facile</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="screen" id="screen3">
+                            <div class="screen-header">
+                                <span class="time">9:41</span>
+                                <div class="status-icons">●●●</div>
+                            </div>
+                            <div class="screen-content">
+                                <h3>Planning du jour</h3>
+                                <div class="timeline">
+                                    <div class="timeline-item completed">
+                                        <span class="time-slot">9h00</span>
+                                        <span class="activity">Petit-déjeuner ✓</span>
+                                    </div>
+                                    <div class="timeline-item current">
+                                        <span class="time-slot">10h30</span>
+                                        <span class="activity">Cours de maths</span>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <span class="time-slot">14h00</span>
+                                        <span class="activity">Sport</span>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <span class="time-slot">18h00</span>
+                                        <span class="activity">Sortie amis</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="screen-navigation">
+                        <button class="nav-btn active" onclick="showScreen(1)">Style</button>
+                        <button class="nav-btn" onclick="showScreen(2)">Food</button>
+                        <button class="nav-btn" onclick="showScreen(3)">Planning</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="testimonial-card">
-          <p class="testimonial-text">"Grâce à l'analyse nutritionnelle, j'ai pu identifier les aliments qui ne me convenaient pas et adapter mon alimentation."</p>
-          <p class="testimonial-author">Thomas, 28 ans</p>
-        </div>
-        <div class="testimonial-card">
-          <p class="testimonial-text">"Les recettes proposées sont créatives et utilisent vraiment ce que j'ai dans mon frigo. Fini le gaspillage !"</p>
-          <p class="testimonial-author">Emma, 35 ans</p>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Section commentaires utilisateurs -->
-  <section class="user-feedback">
-    <div class="container">
-      <h2 class="section-title">Partagez vos idées avec nous</h2>
-      <p style="text-align: center; font-size: 1.1rem; color: #666; margin-bottom: 3rem;">
-        Dites-nous ce que vous aimeriez voir dans VIVA ou ce qui vous plaît dans le concept
-      </p>
-      <div class="feedback-form">
-        <form action="https://formspree.io/f/xnndrjzk" method="POST">
-          <div class="form-group">
-            <input type="text" name="nom_feedback" class="form-control-light" placeholder="Votre nom (optionnel)">
-          </div>
-          <div class="form-group">
-            <textarea name="commentaire" class="form-control-light" rows="4" placeholder="Partagez vos idées, suggestions ou ce que vous trouvez intéressant dans VIVA..." required></textarea>
-          </div>
-          <div class="form-group">
-            <select name="type_feedback" class="form-control-light">
-              <option value="" disabled selected>Type de commentaire</option>
-              <option value="suggestion">Suggestion d'amélioration</option>
-              <option value="positif">Ce que j'aime</option>
-              <option value="fonctionnalite">Nouvelle fonctionnalité</option>
-              <option value="autre">Autre</option>
-            </select>
-          </div>
-          <button type="submit" class="btn-secondary">Envoyer mon avis</button>
-        </form>
-      </div>
-    </div>
-  </section>
+    <!-- Questionnaire utilisateur -->
+    <section class="user-survey">
+        <div class="container">
+            <div class="survey-intro">
+                <h2 class="section-title">Tu veux gagner du temps et te simplifier la vie ?</h2>
+                <p class="survey-description">
+                    Je crée une app avec une IA qui t'aide à t'organiser, cuisiner et t'habiller selon la météo et ton frigo. 
+                    <br><strong>Tu me donnes 30 sec pour t'aider au mieux ?</strong> 🙏
+                </p>
+            </div>
+            
+            <div class="survey-form">
+                <form action="https://formspree.io/f/xnndrjzk" method="POST" id="survey-form">
+                    
+                    <!-- Question 1 -->
+                    <div class="question-block">
+                        <h3 class="question-title">1. Tu galères à trouver quoi manger avec ce qu'il y a dans ton frigo ?</h3>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="probleme_frigo" value="tout_le_temps" required>
+                                <span class="radio-custom">😵‍💫 Tout le temps</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="probleme_frigo" value="parfois" required>
+                                <span class="radio-custom">🤷‍♂️ Parfois</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="probleme_frigo" value="jamais" required>
+                                <span class="radio-custom">🧘‍♀️ Jamais</span>
+                            </label>
+                        </div>
+                    </div>
 
-  <!-- Pied de page -->
-  <footer>
-    <div class="container">
-      <p>© 2025 VIVA - Votre Coach IA Personnel</p>
-      <div class="social-links">
-        <a href="#" class="social-link">📱</a>
-        <a href="#" class="social-link">📘</a>
-        <a href="#" class="social-link">📸</a>
-      </div>
-    </div>
-  </footer>
+                    <!-- Question 2 -->
+                    <div class="question-block">
+                        <h3 class="question-title">2. Tu passes combien de temps à choisir tes vêtements le matin ?</h3>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="temps_vetements" value="plus_5min" required>
+                                <span class="radio-custom">Plus de 5 minutes</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="temps_vetements" value="moins_5min" required>
+                                <span class="radio-custom">Moins de 5 minutes</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="temps_vetements" value="prepare_veille" required>
+                                <span class="radio-custom">Je prépare tout la veille</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Question 3 -->
+                    <div class="question-block">
+                        <h3 class="question-title">3. Si une app pouvait t'aider pour ça, tu l'utiliserais ?</h3>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="utilisation_app" value="grave_oui" required>
+                                <span class="radio-custom">🔥 Grave oui</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="utilisation_app" value="peut_etre" required>
+                                <span class="radio-custom">🤔 Peut-être</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="utilisation_app" value="bof" required>
+                                <span class="radio-custom">💤 Bof, j'en ai pas besoin</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Question 4 -->
+                    <div class="question-block">
+                        <h3 class="question-title">4. Tu voudrais qu'elle t'aide surtout à…</h3>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="priorite_aide" value="manger" required>
+                                <span class="radio-custom">🥗 Manger avec ce que j'ai</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="priorite_aide" value="habiller" required>
+                                <span class="radio-custom">👕 Choisir mes habits</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="priorite_aide" value="organiser" required>
+                                <span class="radio-custom">📅 M'organiser</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="priorite_aide" value="autre" required>
+                                <span class="radio-custom">🧠 Autre :</span>
+                                <input type="text" name="autre_priorite" class="inline-input" placeholder="Précise...">
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Question 5 -->
+                    <div class="question-block">
+                        <h3 class="question-title">5. T'as une galère du quotidien que t'aimerais que mon app résolve ?</h3>
+                        <textarea name="galere_quotidien" class="form-control-survey" rows="3" placeholder="Raconte-moi ton problème du quotidien..."></textarea>
+                    </div>
+
+                    <!-- Question 6 -->
+                    <div class="question-block">
+                        <h3 class="question-title">6. Tu veux tester l'app en avant-première ?</h3>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="test_preview" value="oui" required>
+                                <span class="radio-custom">🔘 Oui</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="test_preview" value="non" required>
+                                <span class="radio-custom">Non</span>
+                            </label>
+                        </div>
+                        <div class="email-conditional" style="margin-top: 15px;">
+                            <input type="email" name="email_preview" class="form-control-survey" placeholder="📩 Email (optionnel si tu as dit oui)">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-survey">Envoyer mes réponses 🚀</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Formulaire d'inscription -->
+    <section id="signup" class="signup">
+        <div class="container">
+            <h2 class="section-title">Soyez parmi les premiers à essayer VIVA</h2>
+            <p>Inscrivez-vous pour recevoir un accès anticipé à notre version bêta.</p>
+            <div class="signup-form">
+                <form action="https://formspree.io/f/xnndrjzk" method="POST" id="waitlist-form">
+                    <div class="form-group">
+                        <input type="text" name="nom" class="form-control" placeholder="Votre nom" required>
+                    </div>
+                    <div class="form-group">
+
+                      <input type="email" name="email" class="form-control" placeholder="Votre email" required>
+                    </div>
+                    <button type="submit" class="btn">Rejoindre la liste d'attente</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Témoignages -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">Ce que disent nos premiers utilisateurs</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"VIVA m'a fait gagner 30 minutes chaque matin ! Plus besoin de réfléchir à ma tenue ou mon petit-déjeuner."</p>
+                    <p class="testimonial-author">- Sarah, 19 ans</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Enfin une app qui comprend vraiment mes besoins. Les suggestions de recettes sont parfaites !"</p>
+                    <p class="testimonial-author">- Thomas, 22 ans</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Je recommande à tous mes amis. C'est comme avoir un assistant personnel dans ma poche."</p>
+                    <p class="testimonial-author">- Emma, 20 ans</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Pied de page -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 VIVA. Tous droits réservés.</p>
+            <div class="social-links">
+                <a href="#" class="social-link">📧</a>
+                <a href="#" class="social-link">📱</a>
+                <a href="#" class="social-link">💬</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Fonction pour basculer entre les écrans de la maquette mobile
+        function showScreen(screenNumber) {
+            // Masquer tous les écrans
+            const screens = document.querySelectorAll('.screen');
+            screens.forEach(screen => screen.classList.remove('active'));
+            
+            // Afficher l'écran sélectionné
+            document.getElementById(`screen${screenNumber}`).classList.add('active');
+            
+            // Mettre à jour les boutons de navigation
+            const navBtns = document.querySelectorAll('.nav-btn');
+            navBtns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        // Rotation automatique des écrans toutes les 4 secondes
+        let currentScreen = 1;
+        setInterval(() => {
+            currentScreen = currentScreen === 3 ? 1 : currentScreen + 1;
+            
+            // Masquer tous les écrans
+            const screens = document.querySelectorAll('.screen');
+            screens.forEach(screen => screen.classList.remove('active'));
+            
+            // Afficher l'écran suivant
+            document.getElementById(`screen${currentScreen}`).classList.add('active');
+            
+            // Mettre à jour les boutons de navigation
+            const navBtns = document.querySelectorAll('.nav-btn');
+            navBtns.forEach(btn => btn.classList.remove('active'));
+            navBtns[currentScreen - 1].classList.add('active');
+        }, 4000);
+
+        // Gestion du formulaire de questionnaire
+        document.getElementById('survey-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Animation de soumission
+            const submitBtn = this.querySelector('.btn-survey');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Envoi en cours... ⏳';
+            submitBtn.disabled = true;
+            
+            // Simuler l'envoi (remplacer par votre logique d'envoi réelle)
+            setTimeout(() => {
+                submitBtn.textContent = 'Merci ! 🎉';
+                submitBtn.style.background = 'linear-gradient(135deg, #4CAF50, #45a049)';
+                
+                // Réinitialiser après 3 secondes
+                setTimeout(() => {
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                    submitBtn.style.background = 'linear-gradient(135deg, #6e8efb, #a777e3)';
+                    this.reset();
+                }, 3000);
+            }, 1500);
+        });
+
+        // Gestion du formulaire de waitlist
+        document.getElementById('waitlist-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('.btn');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Inscription en cours...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                submitBtn.textContent = 'Inscrit ! 🎉';
+                submitBtn.style.backgroundColor = '#4CAF50';
+                
+                setTimeout(() => {
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                    submitBtn.style.backgroundColor = '#ff7e5f';
+                    this.reset();
+                }, 3000);
+            }, 1500);
+        });
+
+        // Animation des cartes de fonctionnalités au scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observer les cartes de fonctionnalités
+        document.addEventListener('DOMContentLoaded', function() {
+            const featureCards = document.querySelectorAll('.feature-card');
+            const testimonialCards = document.querySelectorAll('.testimonial-card');
+            const questionBlocks = document.querySelectorAll('.question-block');
+            
+            [...featureCards, ...testimonialCards, ...questionBlocks].forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        });
+
+        // Smooth scroll pour les liens d'ancrage
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
