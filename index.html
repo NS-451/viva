@@ -110,7 +110,7 @@
         .feature-card p {
             color: #666;
         }
-
+        
         /* Styles pour la maquette mobile */
         .mobile-preview {
             padding: 4rem 0;
@@ -327,7 +327,76 @@
             background: #6e8efb;
             color: white;
         }
-
+        
+        /* Formulaire d'inscription */
+        .signup {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #a777e3, #6e8efb);
+            color: white;
+            text-align: center;
+        }
+        
+        .signup-form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .btn {
+            background-color: #ff7e5f;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: #ff6347;
+        }
+        
+        /* Témoignages */
+        .testimonials {
+            padding: 4rem 0;
+            background-color: #f9f9f9;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .testimonial-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .testimonial-text {
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+        
+        .testimonial-author {
+            font-weight: bold;
+            color: #444;
+        }
+        
         /* Styles pour le questionnaire */
         .user-survey {
             padding: 4rem 0;
@@ -461,75 +530,6 @@
             box-shadow: 0 8px 25px rgba(110, 142, 251, 0.6);
         }
         
-        /* Formulaire d'inscription */
-        .signup {
-            padding: 4rem 0;
-            background: linear-gradient(135deg, #a777e3, #6e8efb);
-            color: white;
-            text-align: center;
-        }
-        
-        .signup-form {
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 1rem;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-        
-        .btn {
-            background-color: #ff7e5f;
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            font-size: 1.1rem;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        
-        .btn:hover {
-            background-color: #ff6347;
-        }
-        
-        /* Témoignages */
-        .testimonials {
-            padding: 4rem 0;
-            background-color: #f9f9f9;
-        }
-        
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        
-        .testimonial-card {
-            background-color: white;
-            border-radius: 10px;
-            padding: 2rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-        
-        .testimonial-text {
-            margin-bottom: 1.5rem;
-            font-style: italic;
-        }
-        
-        .testimonial-author {
-            font-weight: bold;
-            color: #444;
-        }
-        
         /* Pied de page */
         footer {
             background-color: #333;
@@ -549,7 +549,7 @@
             text-decoration: none;
         }
         
-        /* Responsive pour mobile */
+        /* Adaptativité */
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 2rem;
@@ -562,7 +562,7 @@
             .section-title {
                 font-size: 1.8rem;
             }
-
+            
             .phone-frame {
                 width: 250px;
                 height: 500px;
@@ -576,7 +576,7 @@
                 font-size: 2rem;
                 padding: 10px;
             }
-
+            
             .survey-form {
                 padding: 0 10px;
             }
@@ -646,7 +646,7 @@
             </div>
         </div>
     </section>
-
+    
     <!-- Maquette application mobile -->
     <section class="mobile-preview">
         <div class="container">
@@ -737,7 +737,56 @@
             </div>
         </div>
     </section>
-
+    
+    <!-- Formulaire d'inscription -->
+    <section id="signup" class="signup">
+        <div class="container">
+            <h2 class="section-title">Soyez parmi les premiers à essayer VIVA</h2>
+            <p>Inscrivez-vous pour recevoir un accès anticipé à notre version bêta.</p>
+            <div class="signup-form">
+                <form action="https://formspree.io/f/xnndrjzk" method="POST" id="waitlist-form">
+                    <div class="form-group">
+                        <input type="text" name="nom" class="form-control" placeholder="Votre nom" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" class="form-control" placeholder="Votre email" required>
+                    </div>
+                    <div class="form-group">
+                        <select name="interet" class="form-control">
+                            <option value="" disabled selected>Quelle fonctionnalité vous intéresse le plus ?</option>
+                            <option value="style">Conseils vestimentaires</option>
+                            <option value="nutrition">Analyse nutritionnelle</option>
+                            <option value="recipes">Recettes personnalisées</option>
+                            <option value="all">Toutes ces fonctionnalités</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn">Rejoindre la liste d'attente</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Témoignages -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">Ce que nos testeurs en disent</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"J'ai économisé tellement de temps le matin pour choisir ma tenue. Les suggestions sont toujours adaptées à la météo et à mon style !"</p>
+                    <p class="testimonial-author">Sophie, 32 ans</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Grâce à l'analyse nutritionnelle, j'ai pu identifier les aliments qui ne me convenaient pas et adapter mon alimentation."</p>
+                    <p class="testimonial-author">Thomas, 28 ans</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Les recettes proposées sont créatives et utilisent vraiment ce que j'ai dans mon frigo. Fini le gaspillage !"</p>
+                    <p class="testimonial-author">Emma, 35 ans</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
     <!-- Questionnaire utilisateur -->
     <section class="user-survey">
         <div class="container">
@@ -823,54 +872,3 @@
                             </label>
                             <label class="radio-option">
                                 <input type="radio" name="priorite_aide" value="organiser" required>
-                                <span class="radio-custom">📅 M'organiser</span>
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="priorite_aide" value="autre" required>
-                                <span class="radio-custom">🧠 Autre :</span>
-                                <input type="text" name="autre_priorite" class="inline-input" placeholder="Précise...">
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- Question 5 -->
-                    <div class="question-block">
-                        <h3 class="question-title">5. T'as une galère du quotidien que t'aimerais que mon app résolve ?</h3>
-                        <textarea name="galere_quotidien" class="form-control-survey" rows="3" placeholder="Raconte-moi ton problème du quotidien..."></textarea>
-                    </div>
-
-                    <!-- Question 6 -->
-                    <div class="question-block">
-                        <h3 class="question-title">6. Tu veux tester l'app en avant-première ?</h3>
-                        <div class="radio-group">
-                            <label class="radio-option">
-                                <input type="radio" name="test_preview" value="oui" required>
-                                <span class="radio-custom">🔘 Oui</span>
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="test_preview" value="non" required>
-                                <span class="radio-custom">Non</span>
-                            </label>
-                        </div>
-                        <div class="email-conditional" style="margin-top: 15px;">
-                            <input type="email" name="email_preview" class="form-control-survey" placeholder="📩 Email (optionnel si tu as dit oui)">
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn-survey">Envoyer mes réponses 🚀</button>
-                </form>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Formulaire d'inscription -->
-    <section id="signup" class="signup">
-        <div class="container">
-            <h2 class="section-title">Soyez parmi les premiers à essayer VIVA</h2>
-            <p>Inscrivez-vous pour recevoir un accès anticipé à notre version bêta.</p>
-            <div class="signup-form">
-                <form action="https://formspree.io/f/xnndrjzk" method="POST" id="waitlist-form">
-                    <div class="form-group">
-                        <input type="text" name="nom" class="form-control" placeholder="Votre nom" required>
-                    </div>
-                    <div class="form-group">
