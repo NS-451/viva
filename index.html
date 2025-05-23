@@ -305,7 +305,35 @@
             </div>
         </div>
     </section>
-    
+    <!-- Section commentaires utilisateurs -->
+<section class="user-feedback">
+    <div class="container">
+        <h2 class="section-title">Partagez vos idées avec nous</h2>
+        <p style="text-align: center; font-size: 1.1rem; color: #666; margin-bottom: 3rem;">
+            Dites-nous ce que vous aimeriez voir dans VIVA ou ce qui vous plaît dans le concept
+        </p>
+        <div class="feedback-form">
+            <form action="https://formspree.io/f/xnndrjzk" method="POST">
+                <div class="form-group">
+                    <input type="text" name="nom_feedback" class="form-control-light" placeholder="Votre nom (optionnel)">
+                </div>
+                <div class="form-group">
+                    <textarea name="commentaire" class="form-control-light" rows="4" placeholder="Partagez vos idées, suggestions ou ce que vous trouvez intéressant dans VIVA..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <select name="type_feedback" class="form-control-light">
+                        <option value="" disabled selected>Type de commentaire</option>
+                        <option value="suggestion">Suggestion d'amélioration</option>
+                        <option value="positif">Ce que j'aime</option>
+                        <option value="fonctionnalite">Nouvelle fonctionnalité</option>
+                        <option value="autre">Autre</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-secondary">Envoyer mon avis</button>
+            </form>
+        </div>
+    </div>
+</section>
     <!-- Pied de page -->
     <footer>
         <div class="container">
