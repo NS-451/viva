@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
+    <title>VIVA - Votre Coach IA Personnel</title>
     <style>
         /* Styles généraux */
         * {
@@ -33,22 +33,11 @@
             text-align: center;
         }
         
-       .logo-img {
-    width: auto;
-    height: auto; /* Attention : peut déformer l'image */
-    margin-bottom: 1rem;
-}
-@media (max-width: 768px) {
-    .logo-img {
-        max-width: 300px;
-    }
-}
-
-@media (max-width: 480px) {
-    .logo-img {
-        max-width: 250px;
-    }
-}
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
         
         .tagline {
             font-size: 1.2rem;
@@ -620,7 +609,7 @@
     <!-- En-tête -->
     <header>
         <div class="container">
-            <img src="viva-logo.png" alt="VIVA - Votre Coach IA Personnel" class="logo-img">
+            <div class="logo">VIVA</div>
             <div class="tagline">Votre coach IA personnel</div>
         </div>
     </header>
@@ -1028,190 +1017,241 @@ document.getElementById('waitlist-form').addEventListener('submit', async functi
     <!-- JavaScript -->
     <script>
         // Navigation entre les écrans du téléphone
-       <script>
-    // --- Navigation automatique des écrans ---
-    let currentScreen = 1;
-    function autoSlideScreens() {
-        setInterval(() => {
-            currentScreen = currentScreen >= 3 ? 1 : currentScreen + 1;
-
+        function showScreen(screenNumber) {
+            // Masquer tous les écrans
             const screens = document.querySelectorAll('.screen');
             screens.forEach(screen => screen.classList.remove('active'));
-            document.getElementById('screen' + currentScreen).classList.add('active');
-
+            
+            // Afficher l'écran sélectionné
+            document.getElementById('screen' + screenNumber).classList.add('active');
+            
+            // Mettre à jour les boutons de navigation
             const navBtns = document.querySelectorAll('.nav-btn');
             navBtns.forEach(btn => btn.classList.remove('active'));
-            navBtns[currentScreen - 1].classList.add('active');
-        }, 4000);
-    }
+            event.target.classList.add('active');
+        }
 
-    // Décommente ici si tu veux activer l'animation auto :
-    // autoSlideScreens();
+        // Animation automatique des écrans (optionnel)
+        let currentScreen = 1;
+        function autoSlideScreens() {
+            setInterval(() => {
+                currentScreen = currentScreen >= 3 ? 1 : currentScreen + 1;
+                
+                // Masquer tous les écrans
+                const screens = document.querySelectorAll('.screen');
+                screens.forEach(screen => screen.classList.remove('active'));
+                
+                // Afficher l'écran suivant
+                document.getElementById('screen' + currentScreen).classList.add('active');
+                
+                // Mettre à jour les boutons
+                const navBtns = document.querySelectorAll('.nav-btn');
+                navBtns.forEach(btn => btn.classList.remove('active'));
+                navBtns[currentScreen - 1].classList.add('active');
+                
+            }, 4000); // Change d'écran toutes les 4 secondes
+        }
 
+        // Activer l'animation automatique (décommentez si souhaité)
+        // autoSlideScreens();
 
-    // --- Formulaire d'inscription principal ---
-    document.getElementById('waitlist-form')?.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const submitBtn = this.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
-
-        submitBtn.textContent = 'Inscription en cours...';
-        submitBtn.disabled = true;
-
-        try {
-            const formData = new FormData(this);
-            const response = await fetch('https://formspree.io/f/xnndrjzk', {
-                method: 'POST',
-                body: formData,
-                headers: { 'Accept': 'application/json' }
-            });
-
-            if (response.ok) {
-                submitBtn.textContent = '✅ Inscrit(e) !';
-                submitBtn.style.background = '#4CAF50';
-                setTimeout(() => {
-                    submitBtn.textContent = originalText;
-                    submitBtn.disabled = false;
-                    submitBtn.style.background = '';
-                    this.reset();
-                }, 3000);
-            } else {
-                throw new Error('Erreur d\'inscription');
+       // Gestion du formulaire d'inscription
+document.getElementById('waitlist-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const submitBtn = this.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    
+    submitBtn.textContent = 'Inscription en cours...';
+    submitBtn.disabled = true;
+    
+    try {
+        // Envoi réel à Formspree
+        const formData = new FormData(this);
+        const response = await fetch('https://formspree.io/f/xnndrjzk', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
             }
-        } catch (error) {
-            submitBtn.textContent = '❌ Erreur, réessayez';
-            submitBtn.style.background = '#ff4444';
-            submitBtn.disabled = false;
+        });
+        
+        if (response.ok) {
+            // Succès
+            submitBtn.textContent = '✅ Inscrit(e) !';
+            submitBtn.style.background = '#4CAF50';
+            
+            // Reset après 3 secondes
             setTimeout(() => {
                 submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
                 submitBtn.style.background = '';
+                this.reset();
             }, 3000);
-        }
-    });
-
-
-    // --- Fonction pour afficher ou cacher l’email selon la réponse ---
-    function toggleEmailInput(show) {
-        const emailBlock = document.getElementById('email-block');
-        const input = emailBlock.querySelector('input');
-
-        if (show) {
-            emailBlock.style.display = 'block';
-            emailBlock.style.opacity = '1';
-            input.required = true;
         } else {
-            emailBlock.style.display = 'none';
-            emailBlock.style.opacity = '0.7';
-            input.required = false;
-            input.value = '';
+            throw new Error('Erreur d\'inscription');
         }
-    }
-
-    // --- Gestion du formulaire de questionnaire ---
-    document.getElementById('survey-form')?.addEventListener('submit', async function(e) {
-        e.preventDefault();
+    } catch (error) {
+        // Erreur
+        submitBtn.textContent = '❌ Erreur, réessayez';
+        submitBtn.style.background = '#ff4444';
+        submitBtn.disabled = false;
         
-        let submitBtn = this.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
-
-        submitBtn.textContent = 'Envoi en cours... ⏳';
-        submitBtn.disabled = true;
-
-        try {
-            const formData = new FormData(this);
-            const response = await fetch('https://formspree.io/f/xnndrjzk', {
-                method: 'POST',
-                body: formData,
-                headers: { 'Accept': 'application/json' }
-            });
-
-            if (response.ok) {
-                submitBtn.textContent = '🎉 Merci pour tes réponses !';
-                submitBtn.style.background = 'linear-gradient(135deg, #4CAF50, #45a049)';
-
-                const thankYouMessage = document.createElement('div');
-                thankYouMessage.innerHTML = `
-                    <div style="background: linear-gradient(135deg, #4CAF50, #45a049); color: white; padding: 20px; border-radius: 15px; text-align: center; margin-top: 20px; animation: slideIn 0.5s ease;">
-                        <h3>🙏 Merci beaucoup !</h3>
-                        <p>Tes réponses vont m'aider énormément à créer la meilleure app possible.</p>
-                        <p><strong>Je te tiens au courant dès que c'est prêt ! 🚀</strong></p>
-                    </div>
-                `;
-                this.appendChild(thankYouMessage);
-                setTimeout(() => {
-                    this.style.opacity = '0.5';
-                    this.style.pointerEvents = 'none';
-                }, 2000);
-            } else {
-                throw new Error('Erreur d\'envoi');
-            }
-        } catch (error) {
-            submitBtn.textContent = '❌ Erreur, réessayez';
-            submitBtn.style.background = '#ff4444';
-            submitBtn.disabled = false;
-            setTimeout(() => {
-                submitBtn.textContent = originalText;
-                submitBtn.style.background = '';
-            }, 3000);
-        }
-    });
-
-
-    // --- Apparition progressive des blocs ---
-    function animateOnScroll() {
-        const elements = document.querySelectorAll('.feature-card, .testimonial-card, .question-block');
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        });
-
-        elements.forEach(el => {
-            if (!el.closest('.user-survey')) {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(20px)';
-            }
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
-        });
+        setTimeout(() => {
+            submitBtn.textContent = originalText;
+            submitBtn.style.background = '';
+        }, 3000);
     }
+});
 
-    // --- Scroll fluide ---
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+        // Gestion du questionnaire
+        <form id="survey-form">
+    <p>Souhaitez-vous recevoir un accès anticipé ?</p>
+    <label>
+        <input type="radio" name="receive" value="yes" onclick="toggleEmailInput(true)"> Oui
+    </label>
+    <label>
+        <input type="radio" name="receive" value="no" onclick="toggleEmailInput(false)"> Non
+    </label>
+
+    <div id="email-block" style="display: none; opacity: 0.7;">
+        <input type="email" name="email" placeholder="Votre email">
+    </div>
+
+    <button type="submit">Envoyer</button>
+</form>
+
+     function toggleEmailInput(show) {
+    const emailInput = document.getElementById('email-input');
+    const emailBlock = document.getElementById('email-block');
+    
+    if (show) {
+        emailInput.style.display = 'block';           // Affiche le champ email
+        emailBlock.style.opacity = '1';
+        emailInput.querySelector('input').required = true;  // Rend l'email obligatoire
+    } else {
+        emailInput.style.display = 'none';            // Cache le champ email
+        emailBlock.style.opacity = '0.7';
+        emailInput.querySelector('input').required = false; // Email plus obligatoire
+        emailInput.querySelector('input').value = '';       // Vide le champ
+    }
+}
+
+
+        // Gestion de l'envoi du questionnaire
+       document.getElementById('survey-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const submitBtn = this.querySelector('.btn-survey');
+    const originalText = submitBtn.textContent;
+    
+    submitBtn.textContent = 'Envoi en cours... ⏳';
+    submitBtn.disabled = true;
+    
+    try {
+        // Envoi réel à Formspree
+        const formData = new FormData(this);
+        const response = await fetch('https://formspree.io/f/xnndrjzk', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
             }
         });
-    });
+        
+        if (response.ok) {
+            // Succès
+            submitBtn.textContent = '🎉 Merci pour tes réponses !';
+            submitBtn.style.background = 'linear-gradient(135deg, #4CAF50, #45a049)';
+            
+            const thankYouMessage = document.createElement('div');
+            thankYouMessage.innerHTML = `
+                <div style="background: linear-gradient(135deg, #4CAF50, #45a049); color: white; padding: 20px; border-radius: 15px; text-align: center; margin-top: 20px; animation: slideIn 0.5s ease;">
+                    <h3>🙏 Merci beaucoup !</h3>
+                    <p>Tes réponses vont m'aider énormément à créer la meilleure app possible.</p>
+                    <p><strong>Je te tiens au courant dès que c'est prêt ! 🚀</strong></p>
+                </div>
+            `;
+            this.appendChild(thankYouMessage);
+            
+            setTimeout(() => {
+                this.style.opacity = '0.5';
+                this.style.pointerEvents = 'none';
+            }, 2000);
+        } else {
+            throw new Error('Erreur d\'envoi');
+        }
+    } catch (error) {
+        // Erreur
+        submitBtn.textContent = '❌ Erreur, réessayez';
+        submitBtn.style.background = '#ff4444';
+        submitBtn.disabled = false;
+        
+        setTimeout(() => {
+            submitBtn.textContent = originalText;
+            submitBtn.style.background = '';
+        }, 3000);
+    }
+});
 
-    // --- Initialisation ---
-    document.addEventListener('DOMContentLoaded', function() {
-        animateOnScroll();
+        // Animation d'apparition progressive
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.feature-card, .testimonial-card, .question-block');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+            
+           elements.forEach(el => {
+    // Ne pas masquer les éléments du questionnaire par défaut
+    if (!el.closest('.user-survey')) {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+    }
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+});
+        }
 
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideIn {
-                from {
-                    opacity: 0;
-                    transform: translateY(20px);
+        // Scroll fluide pour les liens d'ancrage
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
                 }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
+            });
+        });
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            animateOnScroll();
+            
+            // Animation CSS pour le message de remerciement
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from {
+                        opacity: 0;
+                        transform: translateY(20px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
                 }
-            }
-        `;
-        document.head.appendChild(style);
-    });
-</script>
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>
