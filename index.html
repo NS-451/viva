@@ -33,24 +33,11 @@
             text-align: center;
         }
         
-        .logo-img {
-    max-width: 900px;
-    height: auto;
-    margin-bottom: 1rem;
-    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
-}
-
-@media (max-width: 768px) {
-    .logo-img {
-        max-width: 300px;
-    }
-}
-
-@media (max-width: 480px) {
-    .logo-img {
-        max-width: 250px;
-    }
-}
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
         
         .tagline {
             font-size: 1.2rem;
@@ -622,7 +609,7 @@
     <!-- En-tête -->
     <header>
         <div class="container">
-            <img src="viva-logo.png" alt="VIVA - Votre Coach IA Personnel" class="logo-img">
+            <div class="logo">VIVA</div>
             <div class="tagline">Votre coach IA personnel</div>
         </div>
     </header>
@@ -1118,22 +1105,6 @@ document.getElementById('waitlist-form').addEventListener('submit', async functi
 });
 
         // Gestion du questionnaire
-        <form id="survey-form">
-    <p>Souhaitez-vous recevoir un accès anticipé ?</p>
-    <label>
-        <input type="radio" name="receive" value="yes" onclick="toggleEmailInput(true)"> Oui
-    </label>
-    <label>
-        <input type="radio" name="receive" value="no" onclick="toggleEmailInput(false)"> Non
-    </label>
-
-    <div id="email-block" style="display: none; opacity: 0.7;">
-        <input type="email" name="email" placeholder="Votre email">
-    </div>
-
-    <button type="submit">Envoyer</button>
-</form>
-
      function toggleEmailInput(show) {
     const emailInput = document.getElementById('email-input');
     const emailBlock = document.getElementById('email-block');
