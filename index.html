@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIVA - Votre Coach IA Personnel</title>
+   
     <style>
         /* Styles généraux */
         * {
@@ -1028,19 +1028,19 @@ document.getElementById('waitlist-form').addEventListener('submit', async functi
     <!-- JavaScript -->
     <script>
         // Navigation entre les écrans du téléphone
-        function showScreen(screenNumber) {
-            // Masquer tous les écrans
-            const screens = document.querySelectorAll('.screen');
-            screens.forEach(screen => screen.classList.remove('active'));
-            
-            // Afficher l'écran sélectionné
-            document.getElementById('screen' + screenNumber).classList.add('active');
-            
-            // Mettre à jour les boutons de navigation
-            const navBtns = document.querySelectorAll('.nav-btn');
-            navBtns.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-        }
+       <script>
+    function showScreen(screenNumber, event) {
+        const screens = document.querySelectorAll('.screen');
+        screens.forEach(screen => screen.classList.remove('active'));
+
+        document.getElementById('screen' + screenNumber).classList.add('active');
+
+        const navBtns = document.querySelectorAll('.nav-btn');
+        navBtns.forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+    }
+</script>
+
 
         // Animation automatique des écrans (optionnel)
         let currentScreen = 1;
