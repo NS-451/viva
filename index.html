@@ -1105,6 +1105,22 @@ document.getElementById('waitlist-form').addEventListener('submit', async functi
 });
 
         // Gestion du questionnaire
+        <form id="survey-form">
+    <p>Souhaitez-vous recevoir un accès anticipé ?</p>
+    <label>
+        <input type="radio" name="receive" value="yes" onclick="toggleEmailInput(true)"> Oui
+    </label>
+    <label>
+        <input type="radio" name="receive" value="no" onclick="toggleEmailInput(false)"> Non
+    </label>
+
+    <div id="email-block" style="display: none; opacity: 0.7;">
+        <input type="email" name="email" placeholder="Votre email">
+    </div>
+
+    <button type="submit">Envoyer</button>
+</form>
+
      function toggleEmailInput(show) {
     const emailInput = document.getElementById('email-input');
     const emailBlock = document.getElementById('email-block');
