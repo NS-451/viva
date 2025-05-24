@@ -1105,19 +1105,19 @@ document.getElementById('waitlist-form').addEventListener('submit', async functi
 });
 
         // Gestion du questionnaire
-       function toggleEmailInput(show) {
+     function toggleEmailInput(show) {
+    const emailInput = document.getElementById('email-input');
     const emailBlock = document.getElementById('email-block');
-    const emailInput = emailBlock.querySelector('input'); // le champ <input> réel
-
+    
     if (show) {
-        emailBlock.style.display = 'block';
+        emailInput.style.display = 'block';           // Affiche le champ email
         emailBlock.style.opacity = '1';
-        emailInput.required = true;
+        emailInput.querySelector('input').required = true;  // Rend l'email obligatoire
     } else {
-        emailBlock.style.display = 'none';
+        emailInput.style.display = 'none';            // Cache le champ email
         emailBlock.style.opacity = '0.7';
-        emailInput.required = false;
-        emailInput.value = '';
+        emailInput.querySelector('input').required = false; // Email plus obligatoire
+        emailInput.querySelector('input').value = '';       // Vide le champ
     }
 }
 
